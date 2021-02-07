@@ -35,7 +35,7 @@ export default defineComponent({
   }
 }
 .u-card-header {
-  padding: 18px 20px;
+  padding: 10px 20px;
   border-bottom: 1px solid #ebeef5;
   box-sizing: border-box;
 }

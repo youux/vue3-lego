@@ -5,16 +5,15 @@
       <span class="name">组件列表</span>
     </div>
     <div class="menu-item">
-      <u-card class="item" v-for="item in menuList" :key="item.id" shadow="hover">
-        <template #header>{{item.title}}</template>
-        <p>1111</p>
+      <u-card class="item" v-for="item in items" :key="item.id" shadow="hover">
+        <template #header>{{item.label}}</template>
+        {{item.preview()}}
       </u-card>
     </div>
   </div>
 </template>
 
 <script>
-import { reactive, toRefs } from 'vue'
 import uCard from '../../components/u-card'
 
 export default {
@@ -22,21 +21,9 @@ export default {
   components: {
     uCard
   },
+  props: ['items'],
   setup () {
-    const data = reactive({
-      menuList: [
-        {
-          id: 1,
-          title: '组件1'
-        },
-        {
-          id: 2
-        }
-      ]
-    })
-    return {
-      ...toRefs(data)
-    }
+
   }
 }
 </script>

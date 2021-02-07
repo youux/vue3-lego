@@ -2,7 +2,7 @@
   <el-container>
     <!-- 列表 -->
     <el-aside>
-      <List />
+      <List :items="menuList" />
     </el-aside>
     <el-main>
       <!-- 操作 -->
@@ -43,7 +43,18 @@ export default {
     })
     // 定义默认值
     const data = reactive({
-      contentHei: 0
+      contentHei: 0,
+      menuList: [
+        {
+          id: 1,
+          label: '组件1',
+          preview: () => '<el-button>按钮</el-button>'
+        },
+        {
+          id: 2,
+          preview: () => '<el-radio v-model="radio" label="1">备选项</el-radio>'
+        }
+      ]
     })
     // 获取高度
     const getHeight = () => {
