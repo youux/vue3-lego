@@ -1,20 +1,39 @@
 <template>
   <el-container>
-    <el-aside></el-aside>
+    <!-- 列表 -->
+    <el-aside>
+      <List />
+    </el-aside>
     <el-main>
-      <el-header></el-header>
+      <!-- 操作 -->
+      <el-header>
+        <Handle />
+      </el-header>
+      <!-- 展示 -->
       <div class="page-content" :style="{height:contentHei+'px'}">
         <router-view />
       </div>
     </el-main>
-    <el-aside></el-aside>
+    <!-- 组件设置 -->
+    <el-aside>
+      <!-- 设置 -->
+      <Setting />
+    </el-aside>
   </el-container>
 </template>
 
 <script>
+import List from './list'
+import Setting from './setting'
+import Handle from './handle'
 import { onMounted, reactive, toRefs } from 'vue'
 export default {
   name: 'Home',
+  components: {
+    List,
+    Setting,
+    Handle
+  },
   setup () {
     onMounted(() => {
       // 默认执行一次
@@ -45,15 +64,14 @@ export default {
   height: 100%;
   background-color: #e9eef3;
 }
+.page-content,
+.el-header,
 .el-aside {
   background-color: #fff;
 }
-.el-header {
-  background-color: #fff;
-}
+
 .page-content {
   margin-top: 20px;
-  background-color: #fff;
 }
 
 </style>
