@@ -1,88 +1,47 @@
 <template>
-  <el-container>
-    <!-- 列表 -->
-    <el-aside>
-      <List :items="menuList" />
-    </el-aside>
-    <el-main>
-      <!-- 操作 -->
-      <el-header>
-        <Handle />
-      </el-header>
-      <!-- 展示 -->
-      <div class="page-content" :style="{height:contentHei+'px'}">
-        <router-view />
-      </div>
-    </el-main>
-    <!-- 组件设置 -->
-    <el-aside>
-      <!-- 设置 -->
-      <Setting />
-    </el-aside>
-  </el-container>
+  <p>count的值为：{{count}}</p>
+  <p>double的值为：{{double}}</p>
+  <el-button @click="add">增加count值</el-button>
+  <p>title的值为：{{title}}</p>
+  <el-button @click="edit">修改title的值</el-button>
 </template>
 
 <script>
-import List from './list'
-import Setting from './setting'
-import Handle from './handle'
-import { onMounted, reactive, toRefs } from 'vue'
+import { computed, onMounted, reactive, ref, toRefs, watchEffect } from 'vue'
 export default {
   name: 'Home',
-  components: {
-    List,
-    Setting,
-    Handle
-  },
   setup () {
-    onMounted(() => {
-      // 默认执行一次
-      getHeight()
-      // 改变窗口大小时执行
-      window.onresize = () => getHeight()
-    })
-    // 定义默认值
-    const data = reactive({
-      contentHei: 0,
-      menuList: [
-        {
-          id: 1,
-          label: '组件1',
-          preview: () => '<el-button>按钮</el-button>'
-        },
-        {
-          id: 2,
-          preview: () => '<el-radio v-model="radio" label="1">备选项</el-radio>'
-        }
-      ]
-    })
-    // 获取高度
-    const getHeight = () => {
-      data.contentHei = window.innerHeight - 120
-    }
+    const count = ref(0)
+    const add = () => count.value++
 
-    // 数据返回给模板
+    const state = reactive({
+      title: 'vue3.0',
+      edit: () => {
+        state.title = 'vue3.0+JS'
+      }
+    })
+
+    const double = computed(() => count.value * 2)
+
+    onMounted(() => {
+      console.log('onMouted')
+    })
+
+    watchEffect(() => { console.log('watchEffect', count.value) })
+
+    setTimeout(() => {
+      count.value++
+    }, 100)
+
     return {
-      ...toRefs(data)
+      ...toRefs(state),
+      count,
+      add,
+      double
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.el-container {
-  width: 100%;
-  height: 100%;
-  background-color: #e9eef3;
-}
-.page-content,
-.el-header,
-.el-aside {
-  background-color: #fff;
-}
-
-.page-content {
-  margin-top: 20px;
-}
-
 </style>

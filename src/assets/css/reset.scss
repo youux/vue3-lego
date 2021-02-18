@@ -186,3 +186,10 @@ body {
   height: 6px;
   background-color: #f5f5f5;
 }
+:root {
+  --color: #333;
+}
+:root[theme='light'] {
+  --color: #fff;
+  background-color: #2c3e50;
+}
